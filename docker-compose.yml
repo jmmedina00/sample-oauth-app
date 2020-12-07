@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  authservice:
+    build:
+      context: .
+    volumes:
+      - './src:/var/www/html'
+      - './.env:/etc/.env'
+    ports:
+      - '80:80'
+    environment:
+      XDEBUG_CONFIG: 'remote_enable=1 remote_host=172.17.0.1'
+  database:
+    image: mariadb:10.5.8-focal
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      TZ: Europe/Madrid
+    volumes:
+      - './dbdata:/var/lib/mysql'
+      - './dbinit:/docker-entrypoint-initdb.d'
