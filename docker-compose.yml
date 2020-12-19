@@ -10,7 +10,8 @@ services:
     ports:
       - '80:80'
     environment:
-      XDEBUG_CONFIG: 'remote_enable=1 remote_host=172.17.0.1'
+      XDEBUG_MODE: 'develop,debug'
+      XDEBUG_CONFIG: 'start_with_request=yes'
   database:
     image: mariadb:10.5.8-focal
     restart: always
