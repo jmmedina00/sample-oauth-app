@@ -31,6 +31,6 @@ window.onload = async () => {
     );
     gitHubAuth.setAttribute(
         "href",
-        `${github.baseLink}${githubClientId}&${githubRedirectUri}`
+        `${github.baseLink}${githubClientId}&${githubRedirectUri}&scope=user:email`
     );
 }
