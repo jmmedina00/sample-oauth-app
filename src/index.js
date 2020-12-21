@@ -9,11 +9,11 @@ window.onload = async () => {
     const apiResponse = await fetch("/app_info.php");
     const { GOOGLE_CLIENT_ID } = await apiResponse.json();
 
-    const scope = `scope=${encodeURIComponent(google.scope)}`
-    const redirectUri = `redirect_uri=${encodeURIComponent(google.redirectUri)}`;
-    const clientId = `client_id=${GOOGLE_CLIENT_ID}`;
+    const googleScope = `scope=${encodeURIComponent(google.scope)}`
+    const googleRedirectUri = `redirect_uri=${encodeURIComponent(google.redirectUri)}`;
+    const googleClientId = `client_id=${GOOGLE_CLIENT_ID}`;
     googleAuth.setAttribute(
         "href",
-        `${google.baseLink}${scope}&${redirectUri}&${clientId}&response_type=code`
+        `${google.baseLink}${googleScope}&${googleRedirectUri}&${googleClientId}&response_type=code`
     );
 }
