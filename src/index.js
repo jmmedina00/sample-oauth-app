@@ -19,16 +19,22 @@ const dropbox = {
     redirectUri: "http://localhost/dropbox.php"
 }
 
+const reddit = {
+    baseLink: "https://www.reddit.com/api/v1/authorize?",
+    redirectUri: "http://localhost/reddit.php"
+}
+
 window.onload = async () => {
     const googleAuth = document.querySelector("#googleAuth");
     const gitHubAuth = document.querySelector("#githubAuth");
     const gitlabAuth = document.querySelector("#gitlabAuth");
     const dropboxAuth = document.querySelector("#dropboxAuth");
+    const redditAuth = document.querySelector("#redditAuth");
 
     const apiResponse = await fetch("/app_info.php");
     const {
         GOOGLE_CLIENT_ID, GITHUB_CLIENT_ID, GITLAB_CLIENT_ID,
-        DROPBOX_CLIENT_ID
+        DROPBOX_CLIENT_ID, REDDIT_CLIENT_ID
     } = await apiResponse.json();
 
     const googleScope = `scope=${encodeURIComponent(google.scope)}`
@@ -43,6 +49,9 @@ window.onload = async () => {
 
     const dropboxClientId = `client_id=${DROPBOX_CLIENT_ID}`;
     const dropboxRedirectUri = `redirect_uri=${encodeURIComponent(dropbox.redirectUri)}`;
+
+    const redditClientId = `client_id=${REDDIT_CLIENT_ID}`;
+    const redditRedirectUri = `redirect_uri=${encodeURIComponent(reddit.redirectUri)}`;
 
     googleAuth.setAttribute(
         "href",
@@ -61,5 +70,10 @@ window.onload = async () => {
     dropboxAuth.setAttribute(
         "href",
         `${dropbox.baseLink}${dropboxClientId}&${dropboxRedirectUri}&response_type=code&scope=account_info.read`
+    );
+
+    redditAuth.setAttribute(
+        "href",
+        `${reddit.baseLink}${redditClientId}&${redditRedirectUri}&response_type=code&scope=identity&duration=temporary&state=lipsum`
     );
 }
