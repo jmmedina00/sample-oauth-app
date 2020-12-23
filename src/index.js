@@ -14,14 +14,21 @@ const gitlab = {
     redirectUri: "http://localhost/gitlab.php"
 }
 
+const dropbox = {
+    baseLink: "https://www.dropbox.com/oauth2/authorize?",
+    redirectUri: "http://localhost/dropbox.php"
+}
+
 window.onload = async () => {
     const googleAuth = document.querySelector("#googleAuth");
     const gitHubAuth = document.querySelector("#githubAuth");
     const gitlabAuth = document.querySelector("#gitlabAuth");
+    const dropboxAuth = document.querySelector("#dropboxAuth");
 
     const apiResponse = await fetch("/app_info.php");
     const {
-        GOOGLE_CLIENT_ID, GITHUB_CLIENT_ID, GITLAB_CLIENT_ID
+        GOOGLE_CLIENT_ID, GITHUB_CLIENT_ID, GITLAB_CLIENT_ID,
+        DROPBOX_CLIENT_ID
     } = await apiResponse.json();
 
     const googleScope = `scope=${encodeURIComponent(google.scope)}`
@@ -33,6 +40,9 @@ window.onload = async () => {
 
     const gitlabClientId = `client_id=${GITLAB_CLIENT_ID}`;
     const gitlabRedirectUri = `redirect_uri=${encodeURIComponent(gitlab.redirectUri)}`;
+
+    const dropboxClientId = `client_id=${DROPBOX_CLIENT_ID}`;
+    const dropboxRedirectUri = `redirect_uri=${encodeURIComponent(dropbox.redirectUri)}`;
 
     googleAuth.setAttribute(
         "href",
@@ -46,5 +56,10 @@ window.onload = async () => {
     gitlabAuth.setAttribute(
         "href",
         `${gitlab.baseLink}${gitlabClientId}&${gitlabRedirectUri}&response_type=code&scope=read_user`
-    )
+    );
+
+    dropboxAuth.setAttribute(
+        "href",
+        `${dropbox.baseLink}${dropboxClientId}&${dropboxRedirectUri}&response_type=code&scope=account_info.read`
+    );
 }
