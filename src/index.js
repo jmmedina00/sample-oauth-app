@@ -9,13 +9,19 @@ const github = {
     redirectUri: "http://localhost/github.php"
 }
 
+const gitlab = {
+    baseLink: "https://gitlab.com/oauth/authorize?",
+    redirectUri: "http://localhost/gitlab.php"
+}
+
 window.onload = async () => {
     const googleAuth = document.querySelector("#googleAuth");
     const gitHubAuth = document.querySelector("#githubAuth");
+    const gitlabAuth = document.querySelector("#gitlabAuth");
 
     const apiResponse = await fetch("/app_info.php");
     const {
-        GOOGLE_CLIENT_ID, GITHUB_CLIENT_ID
+        GOOGLE_CLIENT_ID, GITHUB_CLIENT_ID, GITLAB_CLIENT_ID
     } = await apiResponse.json();
 
     const googleScope = `scope=${encodeURIComponent(google.scope)}`
@@ -25,6 +31,9 @@ window.onload = async () => {
     const githubClientId = `client_id=${GITHUB_CLIENT_ID}`;
     const githubRedirectUri = `redirect_uri=${encodeURIComponent(github.redirectUri)}`;
 
+    const gitlabClientId = `client_id=${GITLAB_CLIENT_ID}`;
+    const gitlabRedirectUri = `redirect_uri=${encodeURIComponent(gitlab.redirectUri)}`;
+
     googleAuth.setAttribute(
         "href",
         `${google.baseLink}${googleScope}&${googleRedirectUri}&${googleClientId}&response_type=code`
@@ -33,4 +42,9 @@ window.onload = async () => {
         "href",
         `${github.baseLink}${githubClientId}&${githubRedirectUri}&scope=user:email`
     );
+
+    gitlabAuth.setAttribute(
+        "href",
+        `${gitlab.baseLink}${gitlabClientId}&${gitlabRedirectUri}&response_type=code&scope=read_user`
+    )
 }
