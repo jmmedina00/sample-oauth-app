@@ -1,27 +1,30 @@
-const google = {
-    baseLink: "https://accounts.google.com/o/oauth2/v2/auth?",
-    scope: "https://www.googleapis.com/auth/userinfo.email",
-    redirectUri: "http://localhost/google.php"
-}
+const BASE_REDIRECT = "http://localhost/"
 
-const github = {
-    baseLink: "https://github.com/login/oauth/authorize?",
-    redirectUri: "http://localhost/github.php"
-}
-
-const gitlab = {
-    baseLink: "https://gitlab.com/oauth/authorize?",
-    redirectUri: "http://localhost/gitlab.php"
-}
-
-const dropbox = {
-    baseLink: "https://www.dropbox.com/oauth2/authorize?",
-    redirectUri: "http://localhost/dropbox.php"
-}
-
-const reddit = {
-    baseLink: "https://www.reddit.com/api/v1/authorize?",
-    redirectUri: "http://localhost/reddit.php"
+const oauthData = {
+    google: {
+        baseLink: "https://accounts.google.com/o/oauth2/v2/auth?",
+        scope: "https://www.googleapis.com/auth/userinfo.email",
+        responseType: "code"
+    },
+    github: {
+        baseLink: "https://github.com/login/oauth/authorize?",
+        scope: "user:email"
+    },
+    gitlab: {
+        baseLink: "https://gitlab.com/oauth/authorize?",
+        scope: "read_user",
+        responseType: "code"
+    },
+    dropbox: {
+        baseLink: "https://www.dropbox.com/oauth2/authorize?",,
+        scope: "account_info.read",
+        responseType: "code"
+    },
+    reddit: {
+        baseLink: "https://www.reddit.com/api/v1/authorize?duration=temporary&state=lipsum&",
+        scope: "identity",
+        responseType: "code"
+    }
 }
 
 window.onload = async () => {
