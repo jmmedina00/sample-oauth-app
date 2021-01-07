@@ -3,12 +3,12 @@ const BASE_REDIRECT = "http://localhost/"
 const oauthData = {
     google: {
         baseLink: "https://accounts.google.com/o/oauth2/v2/auth?",
-        scope: "https://www.googleapis.com/auth/userinfo.email",
+        scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
         responseType: "code"
     },
     github: {
         baseLink: "https://github.com/login/oauth/authorize?",
-        scope: "user:email"
+        scope: "user:read,user:email"
     },
     gitlab: {
         baseLink: "https://gitlab.com/oauth/authorize?",
