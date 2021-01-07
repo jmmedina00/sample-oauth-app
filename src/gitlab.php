@@ -1,5 +1,6 @@
 <?php
-require_once "./util/util.php";
+require_once "./util/token.php";
+require_once "./util/resource.php";
 define("INFO_LINK", "https://gitlab.com/api/v4/user");
 
 $token = getAccessToken("gitlab", true);

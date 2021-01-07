@@ -1,5 +1,6 @@
 <?php
-require_once "./util/util.php";
+require_once "./util/token.php";
+require_once "./util/resource.php";
 define("INFO_LINK", "https://api.github.com/user/emails");
 
 $token = getAccessToken("github");

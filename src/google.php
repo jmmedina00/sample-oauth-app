@@ -1,5 +1,6 @@
 <?php
-require_once "./util/util.php";
+require_once "./util/token.php";
+require_once "./util/resource.php";
 define("INFO_LINK", "https://openidconnect.googleapis.com/v1/userinfo");
 
 $token = getAccessToken("google", true);
