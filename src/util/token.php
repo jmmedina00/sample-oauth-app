@@ -37,8 +37,10 @@ function getAccessToken(string $service, bool $expanded = false, bool $asUserCre
   }
 
   if ($expanded) {
-    $postFields["grant_type"] = "authorization_code";
-    $postFields["redirect_uri"] = "http://localhost/$service.php";
+    $postFields += [
+      "grant_type" => "authorization_code",
+      "redirect_uri" => "http://localhost/$service.php"
+    ];
   }
 
   curl_setopt($tokenRequest, CURLOPT_POSTFIELDS, $postFields);
