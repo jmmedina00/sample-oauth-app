@@ -14,6 +14,16 @@ function getDbConnection() {
   );
 }
 
+function getExistingUser(int $id) {
+  $connection = getDbConnection();
+
+  $stmt = $connection->prepare("SELECT * FROM user WHERE id=?");
+  $stmt->execute([$id]);
+
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $user;
+}
+
 function getOrCreateUser(string $email, string $name) {
   $connection = getDbConnection();
 
