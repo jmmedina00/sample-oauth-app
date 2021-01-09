@@ -1,17 +1,21 @@
 <?php
 
-function getOrCreateUser(string $email, string $name) {
+function getDbConnection() {
   [
     "DB_NAME" => $dbName,
     "DB_USER" => $user,
     "DB_PASSWORD" => $password
   ] = parse_ini_file("/etc/.env");
 
-  $connection = new PDO(
+  return new PDO(
     "mysql:host=database;dbname=$dbName", 
     $user, $password, 
     [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]
   );
+}
+
+function getOrCreateUser(string $email, string $name) {
+  $connection = getDbConnection();
 
   $stmtUpdate = $connection->prepare(
     "UPDATE user SET accesses = accesses + 1 WHERE email=?"
