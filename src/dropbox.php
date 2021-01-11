@@ -9,7 +9,6 @@ $info = getResourceWithAuthorization(
     ["link" => INFO_LINK, "token" => $token, "method" => "POST"]
 );
 
-var_dump($info);
 [
     "name" => [
         "display_name" => $name
@@ -18,4 +17,4 @@ var_dump($info);
 ] = $info;
 
 $userId = getOrCreateUser($email, $name);
-var_dump($userId);
+redirectToUser($userId);

@@ -25,3 +25,8 @@ function getResourceWithAuthorization(array $data): array {
   
   return json_decode(file_get_contents($link, false, $context), true);
 }
+
+function redirectToUser(int $id) {
+  header("Location: http://localhost/user.html?id=$id");
+  die();
+}
