@@ -44,7 +44,7 @@ function getAccessToken(string $service, bool $expanded = false, bool $asUserCre
   if ($expanded) {
     $postFields += [
       "grant_type" => "authorization_code",
-      "redirect_uri" => "http://localhost/$service.php"
+      "redirect_uri" => "http://localhost/auth/$service.php"
     ];
   }
 

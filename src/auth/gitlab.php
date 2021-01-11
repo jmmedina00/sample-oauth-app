@@ -1,8 +1,8 @@
 <?php
-require_once "./util/all.php";
-define("INFO_LINK", "https://openidconnect.googleapis.com/v1/userinfo");
+require_once "../util/all.php";
+define("INFO_LINK", "https://gitlab.com/api/v4/user");
 
-$token = getAccessToken("google", true);
+$token = getAccessToken("gitlab", true);
 $info = getResourceWithAuthorization(
     ["link" => INFO_LINK, "token" => $token]
 );

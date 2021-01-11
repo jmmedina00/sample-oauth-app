@@ -1,4 +1,4 @@
-const BASE_REDIRECT = "http://localhost/"
+const BASE_REDIRECT = "http://localhost/auth/"
 
 const oauthData = {
     google: {

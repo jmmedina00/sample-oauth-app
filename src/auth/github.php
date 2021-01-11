@@ -1,5 +1,5 @@
 <?php
-require_once "./util/all.php";
+require_once "../util/all.php";
 define("INFO_LINK", "https://api.github.com/user");
 
 $token = getAccessToken("github");
