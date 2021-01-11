@@ -9,6 +9,11 @@ define("ACCESS_LINKS", [
 ]);
 
 function getAccessToken(string $service, bool $expanded = false, bool $asUserCredentials = false): string {
+  if (!isset($_GET["code"])) {
+    header("Location: http://localhost/error.html");
+    die();
+  }
+  
   $upperCaseService = strtoupper($service);
 
   [
@@ -16,7 +21,7 @@ function getAccessToken(string $service, bool $expanded = false, bool $asUserCre
     $upperCaseService . "_SECRET" => $secret
   ] = parse_ini_file("/etc/.env");
 
-  $authCode = $_GET["code"] or die("Failed to get authorization");
+  $authCode = $_GET["code"];
 
   $tokenRequest = curl_init(ACCESS_LINKS[$service]);
   curl_setopt($tokenRequest, CURLOPT_RETURNTRANSFER, true);
