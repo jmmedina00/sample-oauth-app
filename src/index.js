@@ -1,4 +1,14 @@
-const BASE_REDIRECT = "http://localhost/auth/"
+const BASE_REDIRECT = "http://localhost/auth/";
+
+const getCookie = (name) => {
+    const regex = new RegExp(`^${name}=(.+)$`);
+    
+    const allCookies = document.cookie;
+    const separated = allCookies.split(";").map(cookieString => cookieString.trim());
+    const desiredCookie = separated.find(cookieString => regex.test(cookieString));
+    const [_, cookieValue] = desiredCookie.match(regex);
+    return cookieValue;
+};
 
 const oauthData = {
     google: {
@@ -21,7 +31,7 @@ const oauthData = {
         responseType: "code"
     },
     reddit: {
-        baseLink: "https://www.reddit.com/api/v1/authorize?duration=temporary&state=lipsum&",
+        baseLink: "https://www.reddit.com/api/v1/authorize?duration=temporary&",
         scope: "identity",
         responseType: "code"
     }
@@ -32,15 +42,19 @@ window.onload = async () => {
     const clientIds = await apiResponse.json();
 
     for (const [service, {baseLink, scope, responseType}] of Object.entries(oauthData)) {
+        const cookieName = `${service.toUpperCase()}_STATE`;
+        const state = getCookie(cookieName);
+        
         const clientId = clientIds[`${service.toUpperCase()}_CLIENT_ID`];
         const authElement = document.querySelector(`#${service}Auth`);
 
         const scopeString = `scope=${encodeURIComponent(scope)}`;
         const responseTypeString = responseType ? `&response_type=${responseType}` : "";
         const redirectUri = `&redirect_uri=${encodeURIComponent(BASE_REDIRECT + service + ".php")}`;
+        const stateString = `&state=${encodeURIComponent(state)}`
         authElement.setAttribute(
             "href",
-            `${baseLink}${scopeString}${responseTypeString}${redirectUri}&client_id=${clientId}`
+            `${baseLink}${scopeString}${responseTypeString}${redirectUri}${stateString}&client_id=${clientId}`
         );
     }
 }
