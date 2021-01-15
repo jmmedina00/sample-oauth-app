@@ -4,4 +4,4 @@ ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/mas
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
     install-php-extensions pdo_mysql xdebug-3.0.1
 
-RUN apt update -y && apt install -y git
+# RUN apt update -y && apt install -y git
