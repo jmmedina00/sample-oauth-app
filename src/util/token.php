@@ -9,8 +9,16 @@ define("ACCESS_LINKS", [
 ]);
 
 function getAccessToken(string $service, bool $expanded = false, bool $asUserCredentials = false): string {
+  $actualState = urldecode($_GET["state"]);
+  $expectedState = $_COOKIE[strtoupper($service) . "_STATE"];
+  
   if (!isset($_GET["code"])) {
     header("Location: http://localhost/error.html");
+    die();
+  }
+
+  if ($actualState != $expectedState) {
+    header("Location: http://localhost/goose.png");
     die();
   }
   
